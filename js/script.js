@@ -22,10 +22,10 @@ window.addEventListener('resize', function() {
     setMaxWidth();
     var containerHeight = $("#thumbnails-container").height();
     var windowHeight = $(window).height();
-    if (containerHeight + 50 < windowHeight)
+    if (containerHeight + 66 < windowHeight)
         $("#thumbnails-container").css("margin-top", windowHeight/2 - containerHeight/2);
     else
-        $("#thumbnails-container").css("margin-top", 25);
+        $("#thumbnails-container").css("margin-top", 33);
 
     $(".thumbnail").css("height", $(".thumbnail").width()/16*9);
     $(".thumbnail").css("height", $(".thumbnail").css("line-height", $(".thumbnail").height() + 'px'));

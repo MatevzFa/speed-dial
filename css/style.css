@@ -1,5 +1,6 @@
 body {
     background-color: #000;
+    /*background-color: #FFF;*/
     margin: 0;
     padding: 0;
     -webkit-user-select: none;
@@ -12,7 +13,7 @@ body {
 #thumbnails-container {
     /*position: fixed;*/
     /*background-color: #F00;*/
-    width: calc(100% - 50px);
+    width: calc(100% - 66px);
     margin: 0 auto;
     /*border: 2px solid green;*/
 }
@@ -45,9 +46,8 @@ body {
     background-size: contain;
     /*display: inline-block;*/
 }
-
 .thumbnail:hover {
-    background-color: rgba(255, 255, 255, 0.5);
+    background-color: rgba(255, 255, 255, 0.3);
 }
 
 .links-bar {
@@ -57,6 +57,7 @@ body {
     font-weight: 700;
     font-size: 0.8em;
     position: fixed;
+    text-shadow: 1px 1px 1px #000
 }
 
 .links-bar a {
