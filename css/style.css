@@ -50,4 +50,24 @@ body {
     background-color: rgba(255, 255, 255, 0.5);
 }
 
-.links-bar
+.links-bar {
+    color: #999;
+    /*color: #FFF;*/
+    font-family: 'Open Sans';
+    font-weight: 700;
+    font-size: 0.9em;
+    position: fixed;
+}
+
+.lb-top {
+    top: 0.6em;
+}
+.lb-bott {
+    bottom: 0.6em;
+}
+.lb-right {
+    right: 0.6em;
+}
+.lb-left {
+    left: 0.6em;
+}
