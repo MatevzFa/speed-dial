@@ -3,3 +3,5 @@ thumbnail-data/*.json
 thumbnail-data/images/*.png
 thumbnail-data/images/*.jpg
 thumbnail-data/images/*.svg
+
+indexdownload_files
