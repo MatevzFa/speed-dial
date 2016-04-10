@@ -1,2 +1,5 @@
 # images
-thumbnail-data/.
+thumbnail-data/*.json
+thumbnail-data/images/*.png
+thumbnail-data/images/*.jpg
+thumbnail-data/images/*.svg
