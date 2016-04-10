@@ -1,6 +1,9 @@
 
 # images
-thumbnail-data/*.json
+thumbnail-data/*.js
 thumbnail-data/images/*.png
 thumbnail-data/images/*.jpg
 thumbnail-data/images/*.svg
+
+#link bars
+link-bar-data/*.js

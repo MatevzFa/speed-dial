@@ -1,6 +1,6 @@
 window.addEventListener('load', function() {
 loadThumbs();
-
+loadLinkBars();
 function setMaxWidth() {
     // var sw = 3840;
     var sw = screen.width;
@@ -32,42 +32,6 @@ window.addEventListener('resize', function() {
 });
 
 function loadThumbs(callback) {
-    var thumbnailData = {
-        "name"      : "Test1",
-        "thumbs"    : [
-            {
-                "title" :   "Twitch",
-                "image" :   "twitch.png",
-                "link"  :   "https://www.twitch.tv/"
-            },
-            {
-                "title" :   "YouTube",
-                "image" :   "youtube2.png",
-                "link"  :   "https://www.youtube.com/feed/subscriptions"
-            },
-            {
-                "title" :   "Facebook",
-                "image" :   "facebook.png",
-                "link"  :   "https://www.facebook.com/"
-            },
-            {
-                "title" :   "Twitter",
-                "image" :   "twitter.png",
-                "link"  :   "https://twitter.com/"
-            },
-            {
-                "title" :   "Old School RuneScape",
-                "image" :   "osrs.png",
-                "link"  :   "http://runescape.com/community"
-            },
-            {
-                "title" :   "Spletna učilnica FRI",
-                "image" :   "fri.png",
-                "link"  :   "https://ucilnica.fri.uni-lj.si/login/index.php"
-            },
-        ]
-    };
-
 
     for (var i = thumbnailData.thumbs.length - 1; i >= 0; i--) {
         $("#thumbnails-container").prepend(
@@ -80,4 +44,17 @@ function loadThumbs(callback) {
         position();
     }
 }
+
+function loadLinkBars() {
+    for (barname in linkset_1) {
+        if(linkset_1[barname].title) {
+            console.log("#links-bar-" + barname);
+            $("#links-bar-" + barname).append(linkset_1[barname].title + ': ');
+        }
+        for (var i = 0; i < linkset_1[barname].links.length; i++) {
+            $("#links-bar-" + barname).append((i == 0 ? '' : ' | ') + '<a href="' + linkset_1[barname].links[i].url + '">' + linkset_1[barname].links[i].name + '</a>');
+        }
+    }
+}
+
 });
