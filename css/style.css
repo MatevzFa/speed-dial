@@ -8,6 +8,7 @@ body {
     -ms-user-select: none;
     user-select: none;
     overflow: hidden;
+    cursor: default;
 }
 
 #thumbnails-container {
@@ -47,6 +48,7 @@ body {
     /*display: inline-block;*/
 }
 .thumbnail:hover {
+    cursor: pointer;
     background-color: rgba(255, 255, 255, 0.3);
 }
 
@@ -60,11 +62,12 @@ body {
     text-shadow: 1px 1px 1px #000
 }
 
-.links-bar a {
+.links-bar-node {
     color: white;
     text-decoration: none;
 }
-.links-bar a:hover {
+.links-bar-node:hover {
+    cursor: pointer;
     text-decoration: underline;;
 }
 

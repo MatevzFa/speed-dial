@@ -35,11 +35,9 @@ function loadThumbs(callback) {
 
     for (var i = thumbnailData.thumbs.length - 1; i >= 0; i--) {
         $("#thumbnails-container").prepend(
-            '<a href="'+ thumbnailData.thumbs[i].link +'"> \
-                <div class="thumbnail"> \
-                    <div class="thumbnail-background" style="background-image: url(thumbnail-data/images/'+ thumbnailData.thumbs[i].image +')"></div> \
-                </div> \
-            </a>'
+            '<div class="thumbnail clickable" href="'+ thumbnailData.thumbs[i].link +'"> \
+                <div class="thumbnail-background" style="background-image: url(thumbnail-data/images/'+ thumbnailData.thumbs[i].image +')"></div> \
+            </div>'
         )
         position();
     }
@@ -52,9 +50,13 @@ function loadLinkBars() {
             $("#links-bar-" + barname).append(linkset_1[barname].title + ': ');
         }
         for (var i = 0; i < linkset_1[barname].links.length; i++) {
-            $("#links-bar-" + barname).append((i == 0 ? '' : ' | ') + '<a href="' + linkset_1[barname].links[i].url + '">' + linkset_1[barname].links[i].name + '</a>');
+            $("#links-bar-" + barname).append((i == 0 ? '' : ' | ') + '<span class="links-bar-node clickable" href="' + linkset_1[barname].links[i].url + '">' + linkset_1[barname].links[i].name + '</span>');
         }
     }
 }
+
+$(".clickable").click(function() {
+    window.location = $(this).attr('href');
+})
 
 });
