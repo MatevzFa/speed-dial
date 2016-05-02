@@ -47,7 +47,7 @@ function loadLinkBars() {
     for (barname in linkset_1) {
         if(linkset_1[barname].title) {
             console.log("#links-bar-" + barname);
-            $("#links-bar-" + barname).append(linkset_1[barname].title + ': ');
+            $("#links-bar-" + barname).append(linkset_1[barname].title + ':&nbsp;&nbsp;');
         }
         for (var i = 0; i < linkset_1[barname].links.length; i++) {
             $("#links-bar-" + barname).append((i == 0 ? '' : ' | ') + '<span class="links-bar-node clickable" href="' + linkset_1[barname].links[i].url + '">' + linkset_1[barname].links[i].name + '</span>');
