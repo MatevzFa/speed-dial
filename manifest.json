@@ -1,0 +1,13 @@
+{
+  "manifest_version": 2,
+
+  "name": "Speed Dial 2 by Tchervychek",
+  "description": "The end is neigh!",
+  "version": "2.0",
+
+  "chrome_url_overrides": {
+    "newtab": "index.html"
+  },
+
+  "content_security_policy":"script-src 'self' https://ajax.googleapis.com; object-src 'self'"
+}

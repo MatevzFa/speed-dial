@@ -1,0 +1,57 @@
+{
+    "top-left" : {
+        "title" : "",
+        "links" : [
+            {
+                "name" : "Vozni redi",
+                "url" : "http://www.lpp.si/sites/default/files/lpp_vozniredi/iskalnik/index.php?stop=0&line=112",
+            },
+            {
+                "name" : "BBC News",
+                "url" : "http://www.bbc.com/news"
+            },
+            {
+                "name" : "Kickass Torrents",
+                "url" : "https://kat.cr/Kickass"
+            }
+        ]
+    },
+    "top-right" : {
+        "title" : "Livestreams",
+        "links" : [
+            {
+                "name" : "B0aty",
+                "url" : "https://www.twitch.tv/b0aty"
+            },
+            {
+                "name" : "Skill Specs",
+                "url" : "https://www.twitch.tv/skillspecs"
+            },
+            {
+                "name" : "RuneScape",
+                "url" : "https://www.twitch.tv/runescape"
+            },
+            {
+                "name" : "Lirik",
+                "url" : "https://www.twitch.tv/lirik"
+            },
+            {
+                "name" : "Sodapoppin",
+                "url" : "https://www.twitch.tv/sodapoppin"
+            }
+        ]
+    },
+    "bottom-left" : {
+        "title" : "Reddit",
+        "links" : [
+            {
+                "name" : "/r/2007scape",
+                "url" : "https://www.reddit.com/r/2007scape"
+            },
+            {
+                "name" : "/r/globaloffensive",
+                "url" : "https://www.reddit.com/r/globaloffensive"
+            }
+        ]
+    }
+}

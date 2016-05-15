@@ -1,3 +1,18 @@
+var LINKSET = 'linkset-1';
+var THUMBNAILS = 'thumbnails-1';
+
+var linkset;
+var thumbnails;
+
+$.getJSON(chrome.extension.getURL('/link-bar-data/'+LINKSET+'.json'), function(json) {
+    console.log(json);
+    linkset = JSON.parse(json);
+});
+$.getJSON(chrome.extension.getURL('/thumbnail-data/'+THUMBNAILS+'.json'), function(json) {
+    console.log(json);
+    thumbnails = JSON.parse(json);
+});
+
 window.addEventListener('load', function() {
 loadThumbs();
 loadLinkBars();
@@ -33,10 +48,10 @@ window.addEventListener('resize', function() {
 
 function loadThumbs(callback) {
 
-    for (var i = thumbnailData.thumbs.length - 1; i >= 0; i--) {
+    for (var i = thumbnails.length - 1; i >= 0; i--) {
         $("#thumbnails-container").prepend(
-            '<div class="thumbnail clickable" href="'+ thumbnailData.thumbs[i].link +'"> \
-                <div class="thumbnail-background" style="background-image: url(thumbnail-data/images/'+ thumbnailData.thumbs[i].image +')"></div> \
+            '<div class="thumbnail clickable" href="'+ thumbnails[i].link +'"> \
+                <div class="thumbnail-background" style="background-image: url(thumbnail-data/images/'+ thumbnails[i].image +')"></div> \
             </div>'
         )
         position();
@@ -44,13 +59,13 @@ function loadThumbs(callback) {
 }
 
 function loadLinkBars() {
-    for (barname in linkset_1) {
-        if(linkset_1[barname].title) {
+    for (barname in linkset) {
+        if(linkset[barname].title) {
             console.log("#links-bar-" + barname);
-            $("#links-bar-" + barname).append(linkset_1[barname].title + ':&nbsp;&nbsp;');
+            $("#links-bar-" + barname).append(linkset[barname].title + ':&nbsp;&nbsp;');
         }
-        for (var i = 0; i < linkset_1[barname].links.length; i++) {
-            $("#links-bar-" + barname).append((i == 0 ? '' : ' | ') + '<span class="links-bar-node clickable" href="' + linkset_1[barname].links[i].url + '">' + linkset_1[barname].links[i].name + '</span>');
+        for (var i = 0; i < linkset[barname].links.length; i++) {
+            $("#links-bar-" + barname).append((i == 0 ? '' : ' | ') + '<span class="links-bar-node clickable" href="' + linkset[barname].links[i].url + '">' + linkset[barname].links[i].name + '</span>');
         }
     }
 }
