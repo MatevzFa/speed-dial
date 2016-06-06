@@ -4,4 +4,4 @@
 Speed Dial extension for Google Chrome.
 
 ## Setting up
-_This isn't a packed extension for Google Chrome yet, nor does it include all the files needed to pack it._
+_This extension is not packed. You can either pack it yourself, or use Developer mode._
