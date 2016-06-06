@@ -1,7 +1,9 @@
+var PROFILE = ""; // profile name. If null or empty string, default links and thubnails will be loaded.
+
 window.addEventListener('load', function() {
 
-    loadThumbs();
-    loadLinkBars();
+    loadThumbs(PROFILE);
+    loadLinkBars(PROFILE);
     function setMaxWidth() {
         // var sw = 3840;
         var sw = screen.width;
@@ -36,12 +38,12 @@ window.addEventListener('load', function() {
 
         $.ajax({
             dataType  : 'json',
-            url : 'profiles/' + (profile == null ? 'default' : profile) + '/thumbnails.json',
+            url : 'profiles/' + (profile == null || profile.length == 0 ? 'default' : profile) + '/thumbnails.json',
             success : function(thumbnails) {
                 for (var i = thumbnails.thumbs.length - 1; i >= 0; i--) {
                     $("#thumbnails-container").prepend(
                         '<div class="thumbnail '+ (thumbnails.thumbs[i].link == null ? 'hidden' : 'clickable') +'" href="'+ thumbnails.thumbs[i].link +'"> \
-                        <div class="thumbnail-background" style="background-image: url(profiles/' + (profile == null ? 'default' : profile) + '/images/'+ thumbnails.thumbs[i].image +')"></div> \
+                        <div class="thumbnail-background" style="background-image: url(profiles/' + (profile == null || profile.length == 0 ? 'default' : profile) + '/images/'+ thumbnails.thumbs[i].image +')"></div> \
                         </div>'
                     )
                     position();
@@ -60,7 +62,7 @@ window.addEventListener('load', function() {
                 });
             },
             error : function(err) {
-                console.log('Erorr loading linkbars from profile: %s', (profile == null ? 'default' : profile));
+                console.log('Erorr loading thumbnails from profile: %s', (profile == null || profile.length == 0 ? 'default' : profile));
             }
         });
 
@@ -70,7 +72,7 @@ window.addEventListener('load', function() {
     function loadLinkBars(profile) {
         $.ajax({
             dataType  : 'json',
-            url : 'profiles/' + (profile == null ? 'default' : profile) + '/linkbars.json',
+            url : 'profiles/' + (profile == null || profile.length == 0 ? 'default' : profile) + '/linkbars.json',
             success : function(linkbars) {
                 for (barname in linkbars) {
                     if(linkbars[barname].title) {
@@ -94,7 +96,7 @@ window.addEventListener('load', function() {
                 });
             },
             error : function(err) {
-                console.log('Erorr loading linkbars from profile: %s', (profile == null ? 'default' : profile));
+                console.log('Erorr loading linkbars from profile: %s\n', (profile == null ? 'default' : profile), err);
             }
         });
     }
