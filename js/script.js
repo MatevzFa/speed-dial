@@ -35,7 +35,7 @@ function loadThumbs(callback) {
 
     for (var i = thumbnailData.thumbs.length - 1; i >= 0; i--) {
         $("#thumbnails-container").prepend(
-            '<div class="thumbnail clickable" href="'+ thumbnailData.thumbs[i].link +'"> \
+            '<div class="thumbnail '+ (thumbnailData.thumbs[i].link == null ? 'hidden' : 'clickable') +'" href="'+ thumbnailData.thumbs[i].link +'"> \
                 <div class="thumbnail-background" style="background-image: url(thumbnail-data/images/'+ thumbnailData.thumbs[i].image +')"></div> \
             </div>'
         )
@@ -55,8 +55,17 @@ function loadLinkBars() {
     }
 }
 
-$(".clickable").click(function() {
-    window.location = $(this).attr('href');
+$(".clickable").on("mouseup", function(e) {
+  switch(e.which) {
+    case 1:
+      window.location = $(this).attr('href');
+      break;
+    case 2:
+      window.open($(this).attr('href'));
+      break;
+    case 3:
+      return;
+  }
 })
 
 });

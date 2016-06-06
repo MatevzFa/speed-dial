@@ -1,0 +1,29 @@
+{
+    "top-left" : {
+        "title" : null,
+        "links" : [
+            {
+                "name" : "BBC News",
+                "url" : "http://www.bbc.com/news"
+            }
+        ]
+    },
+    "top-right" : {
+        "title" : "Livestreams",
+        "links" : [
+            {
+                "name" : "ESL",
+                "url" : "https://www.twitch.tv/esl_csgo"
+            }
+        ]
+    },
+    "bottom-left" : {
+        "title" : "Reddit",
+        "links" : [
+            {
+                "name" : "/r/YouTube",
+                "url" : "https://www.reddit.com/r/YouTube"
+            }
+        ]
+    }
+}
