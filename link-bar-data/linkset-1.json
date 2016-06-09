@@ -1,10 +1,10 @@
 {
     "top-left" : {
-        "title" : "",
+        "title" : null,
         "links" : [
             {
                 "name" : "Vozni redi",
-                "url" : "http://www.lpp.si/sites/default/files/lpp_vozniredi/iskalnik/index.php?stop=0&line=112",
+                "url" : "http://www.lpp.si/sites/default/files/lpp_vozniredi/iskalnik/index.php?stop=0&line=112"
             },
             {
                 "name" : "BBC News",
