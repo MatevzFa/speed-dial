@@ -48,7 +48,7 @@ window.addEventListener('load', function() {
                     )
                     position();
                 }
-                $('div.clickable').on("mouseup", function(e) {
+                $('div.clickable').on("click", function(e) {
                     switch(e.which) {
                         case 1:
                             window.location = $(this).attr('href');
