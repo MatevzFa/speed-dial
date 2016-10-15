@@ -1,7 +1,7 @@
 var PROFILE = ""; // profile name. If null or empty string, default links and thubnails will be loaded.
 
 window.addEventListener('load', function() {
-
+    $('head').append('<link rel="stylesheet" type="text/css" href="profiles/' + (PROFILE == "" ? "default" : PROFILE) + '/css/style.css">');
     loadThumbs(PROFILE);
     loadLinkBars(PROFILE);
     function setMaxWidth() {
