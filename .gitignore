@@ -2,4 +2,5 @@
 profiles/*
 !profiles/default
 
-
+# ignore zip files for uploading
+*.zip

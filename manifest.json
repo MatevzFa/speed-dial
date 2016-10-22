@@ -1,13 +1,17 @@
 {
     "manifest_version": 2,
+    "name": "Speed Dial",
+    "version": "0.0.1",
+
+    "description": "The end is neigh!",
+    "icons": {
+        "16": "icons/tch_16.png",
+        "48": "icons/tch_48.png",
+        "128": "icons/tch_128.png"
+    },
+
     "chrome_url_overrides": {
         "newtab": "index.html"
     },
-    "content_security_policy": "script-src 'self' https://ajax.googleapis.com; object-src 'self'",
-    "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAxlCoxzvVuNWVp9342Uwayj1tqfgyLbfLwdHr7zDq+1T6HyXjWxSQQj+Bg7cCToxzoc1ED0A5XeBPRNBdNW9220zr8unSx2SnRdqKeblWV1joFALT7t1h3odpjQTn7s/+ONq5fzs2BLffWmYe+8EYHv5ORz/z99r2qYEvB+IbsijGy94OaekUFDGCuUHCt8kbsE8JTc4zGs6/C/3Gk6PURFK9z7nTmQ9L5IrNftSPf15BDl+u/TFA4xi/regH8/yUu/jAFOM5VL2C9i/ET9/I/udajwraLXdoZ067wdKaz+7YqE4v4bcHVoXYLev/gUpLwpTDaSl12BXyF57qbJtEJQIDAQAB",
-
-
-    "name": "Speed Dial 2 by Tchervychek",
-    "version": "2.0",
-    "description": "The end is neigh!"
+    "content_security_policy": "script-src 'self' https://ajax.googleapis.com; object-src 'self'"
 }
