@@ -1,91 +1,23 @@
 body {
-    background-color: #555;
-    /*background-color: #FFF;*/
-    margin: 0;
-    padding: 0;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    overflow: hidden;
-    cursor: default;
-}
-
-#thumbnails-container {
-    /*position: fixed;*/
-    /*background-color: #F00;*/
-    width: calc(100% - 66px);
-    margin: 0 auto;
-    /*border: 2px solid green;*/
+  background-color: #000;
 }
 
 .thumbnail {
-    text-align: center;
-    width: calc(25% - 1px);
-    line-height: 180px;
-    /*-webkit-background-size: 25% 25%;
-    -moz-background-size: 25% 25%;
-    -o-background-size: 25% 25%;
-    background-size: 25% 25%;*/
-    float: left;
-    margin-right: 1px;
-    margin-bottom: 1px;
-    background-color: rgba(255, 255, 255, 0.2);
-    /*display: table-cell;*/
-    position: relative;
+  background-color: rgba(255, 255, 255, 0.2);
 }
 
-.thumbnail-background {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 70%;
-    height: 50%;
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: contain;
-    /*display: inline-block;*/
-}
 .thumbnail:hover {
-    cursor: pointer;
     background-color: rgba(255, 255, 255, 0.3);
 }
 
 .links-bar {
-    color: #999;
-    /*color: #FFF;*/
+    color: #999;*/
     font-family: 'Open Sans';
     font-weight: 700;
-    font-size: 1.1em;
-    position: fixed;
+    font-size: 1.2em;
     text-shadow: 1px 1px 1px #000
 }
 
 .links-bar-node {
     color: white;
-    text-decoration: none;
-}
-.links-bar-node:hover {
-    cursor: pointer;
-    text-decoration: underline;;
-}
-
-.lb-top {
-    top: 0.6em;
-}
-.lb-bott {
-    bottom: 0.6em;
-}
-.lb-right {
-    right: 0.6em;
-}
-.lb-left {
-    left: 0.6em;
-}
-
-.hidden, .hidden:hover {
-  cursor: default;
-  background: none;
-  background
 }

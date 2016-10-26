@@ -1,6 +1,3 @@
 # ignore all profiles (except default)
 profiles/*
 !profiles/default
-
-# ignore zip files for uploading
-*.zip
