@@ -1,23 +1,25 @@
 body {
+  /*background-color: #001122;*/
   background-color: #000;
+  font-family: 'Roboto';
 }
 
 .thumbnail {
   background-color: rgba(255, 255, 255, 0.2);
 }
 
-.thumbnail:hover {
+.clickable:hover {
     background-color: rgba(255, 255, 255, 0.3);
 }
 
 .links-bar {
     color: #999;*/
-    font-family: 'Open Sans';
-    font-weight: 700;
+    /*font-family: 'Roboto';*/
+    font-weight: 400;
     font-size: 1.2em;
     text-shadow: 1px 1px 1px #000
 }
 
 .links-bar-node {
-    color: white;
+    color: #FFF;
 }

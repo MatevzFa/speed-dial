@@ -1,7 +1,7 @@
 {
     "manifest_version": 2,
     "name": "Speed Dial",
-    "version": "0.0.2",
+    "version": "0.1.0",
 
     "description": "The end is neigh!",
     "icons": {
@@ -17,5 +17,5 @@
     "chrome_url_overrides": {
         "newtab": "index.html"
     },
-    "content_security_policy": "script-src 'self' https://ajax.googleapis.com; object-src 'self'"
+    "content_security_policy": "script-src 'self' https://ajax.googleapis.com https://code.jquery.com; object-src 'self'"
 }

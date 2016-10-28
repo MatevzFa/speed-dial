@@ -1,12 +1,42 @@
+var IMG_LINK_PATT = new RegExp(/((http:\/\/)|(https:\/\/)).+\.(png|jpg|gif|svg)/g);
+
 function setProfile(profile) {
-  chrome.storage.sync.set({"curProfile": profile}, function(){
+  chrome.storage.sync.get(function(data) {
+    data.curProfile = profile;
     alert("Profile set to <" + profile + ">.");
+    if (!data.profiles) data.profiles = {};
+    if (!data.profiles[profile]) {
+      alert("Initializing new profile.");
+      data.profiles[profile] = {
+        "thumbs": [],
+        "linkbars": {
+          "top-left": {
+            "title" : null,
+            "links" : []
+          },
+          "top-right": {
+            "title" : null,
+            "links" : []
+          },
+          "bottom-right": {
+            "title" : null,
+            "links" : []
+          },
+          "bottom-left": {
+            "title" : null,
+            "links" : []
+          }
+        }
+      }
+    }
+    chrome.storage.sync.set(data, function() {})
   })
 }
 
 // [{"image": ..., "link": ...}, ...]
 function setProfileThumbs(profile, thumbArrayJSONString) {
   chrome.storage.sync.get(function(data) {
+    if (!data.curProfile) alert('Profile not set');
     data.profiles[profile].thumbs = JSON.parse(thumbArrayJSONString)
     chrome.storage.sync.set(data, function() {
       alert("Set thumbs for <" + profile + ">.");
@@ -17,6 +47,7 @@ function setProfileThumbs(profile, thumbArrayJSONString) {
 // {'top-left': ..., 'top-right': ..., ...}
 function setProfileLinkbars(profile, linkbarArrayJSONString) {
   chrome.storage.sync.get(function(data) {
+    if (!data.curProfile) alert('Profile not set');
     data.profiles[profile].linkbars = JSON.parse(linkbarArrayJSONString)
     chrome.storage.sync.set(data, function() {
       alert("Set thumbs for <" + profile + ">.");
@@ -25,18 +56,22 @@ function setProfileLinkbars(profile, linkbarArrayJSONString) {
 }
 
 function loadThumbs() {
+  $('#thumbnail-container').empty();
   chrome.storage.sync.get(function(data) {
+    if (!data.curProfile || !data.profiles[data.curProfile].thumbs) return;
     var thumbnails = data.profiles[data.curProfile];
-    console.log(thumbnails.thumbs);
     for (var i = 0; i < thumbnails.thumbs.length; i++) {
-      console.log(i);
       $("#thumbnail-container").append(
-        '<div class="thumbnail '+ (thumbnails.thumbs[i].link == null ? 'hidden' : 'clickable') +'" href="'+ thumbnails.thumbs[i].link +'"> \
-          <div class="thumbnail-background" style="background-image: url(profiles/' + data.curProfile + '/images/'+ thumbnails.thumbs[i].image +')"></div> \
+        '<div class="thumbnail '+ (thumbnails.thumbs[i].url == 'empty' ? 'hidden' : 'clickable clickable-href') +'" href="'+ thumbnails.thumbs[i].url +'"> \
+          <div class="thumbnail-background" style="background-image: url(' +
+          (IMG_LINK_PATT.test(thumbnails.thumbs[i].img) ? thumbnails.thumbs[i].img : ('assets/images/'+ thumbnails.thumbs[i].img)) +
+          ')"></div> \
         </div>'
       );
+      $('#thumbnail-container').css('margin-top', $(window).height()/2 - $('#thumbnail-container').height()/2);
+      $('.thumbnail').css('height', $('.thumbnail').width()/16*9);
     }
-    $('div.clickable').on("click", function(e) {
+    $('div.clickable-href').on('click', function(e) {
       switch(e.which) {
         case 1:
           window.location = $(this).attr('href');
@@ -51,18 +86,19 @@ function loadThumbs() {
   });
 }
 
-function loadLinkBars() {
+function loadLinkbars() {
   chrome.storage.sync.get(function(data) {
+    if (!data.curProfile || !data.profiles[data.curProfile].linkbars) return;
     var linkbars = data.profiles[data.curProfile].linkbars;
     for (barname in linkbars) {
       if(linkbars[barname].title) {
         $("#links-bar-" + barname).append(linkbars[barname].title + ':&nbsp;&nbsp;');
       }
       for (var i = 0; i < linkbars[barname].links.length; i++) {
-        $("#links-bar-" + barname).append((i == 0 ? '' : ' | ') + '<span class="links-bar-node clickable" href="' + linkbars[barname].links[i].url + '">' + linkbars[barname].links[i].name + '</span>');
+        $("#links-bar-" + barname).append((i == 0 ? '' : ' | ') + '<span class="links-bar-node clickable-href" href="' + linkbars[barname].links[i].url + '">' + linkbars[barname].links[i].name + '</span>');
       }
     }
-    $('span.clickable').on("click", function(e) {
+    $('span.clickable-href').on("click", function(e) {
       switch(e.which) {
         case 1:
           window.location = $(this).attr('href');
@@ -80,20 +116,21 @@ function loadLinkBars() {
 
 $(document).ready(function() {
 
-  chrome.storage.sync.get(function(data) {
-    $('head').append('<link rel="stylesheet" type="text/css" href="profiles/' + data.curProfile + '/css/style.css">');
-  });
-  loadThumbs();
-  loadLinkBars();
   $('#thumbnail-container').bind('DOMNodeInserted DOMNodeRemoved', function () {
      $('#thumbnail-container').css('margin-top', $(window).height()/2 - $('#thumbnail-container').height()/2);
      $('.thumbnail').css('height', $('.thumbnail').width()/16*9);
   });
+  // $('#thumbnail-container').sortable();
+  // $('#thumbnail-container').sortable('disable');
+  loadThumbs();
+  loadLinkbars();
 
   $(window).on('resize', function() {
     $('.thumbnail').css('height', $('.thumbnail').width()/16*9);
     $('#thumbnail-container').css('margin-top', $(window).height()/2 - $('#thumbnail-container').height()/2);
-  })
+  });
 
   $('#thumbnail-container').css('margin-top', $(window).height()/2 - $('#thumbnail-container').height()/2);
+
+  $('#settings').click(function() {loadSetup()});
 });

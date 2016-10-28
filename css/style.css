@@ -40,9 +40,8 @@ body {
   text-align: center;
 }
 
-.thumbnail:hover {
+.clickable:hover {
     cursor: pointer;
-    /*background-color: rgba(255, 255, 255, 0.3);*/
 }
 
 .thumbnail-background {
@@ -90,7 +89,21 @@ body {
 }
 
 .hidden, .hidden:hover {
+  opacity: 0;
   cursor: default;
   background: none;
-  background
+}
+
+#settings {
+  opacity: 0.05;
+  width: 1em;
+  height: 1em;
+  position: fixed;
+  bottom: 1em;
+  left: calc(50% - 0.5em);
+}
+
+#settings:hover {
+  opacity: 1;
+  cursor: pointer;
 }
