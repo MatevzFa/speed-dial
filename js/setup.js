@@ -22,7 +22,7 @@ function loadSetup() {
     });
 
     $("#thumbnail-container").append(' \
-      <div class="thumbnail add-thumb clickable"> \
+      <div class="thumbnail add-thumb clickable settings-thumbnail"> \
         <div class="thumbnail-background" style="background-image: url(assets/icons/ic_add_circle_outline_white_24px.svg)"></div> \
       </div> \
     ');
@@ -38,11 +38,25 @@ function loadSetup() {
     });
 
     $("#thumbnail-container").append(' \
-      <div class="thumbnail save-thumbs clickable"> \
+      <div class="thumbnail save-thumbs clickable settings-thumbnail"> \
         <div class="thumbnail-background" style="background-image: url(assets/icons/ic_save_white_24px.svg)"></div> \
       </div> \
     ');
     $(".save-thumbs").click(function() {saveSetup()});
+
+    $("#thumbnail-container").append(' \
+      <div class="thumbnail export-settings clickable settings-thumbnail"> \
+        <div class="thumbnail-background" style="background-image: url(assets/icons/ic_file_download_white_24px.svg)"></div> \
+      </div> \
+    ');
+    $(".export-settings").click(function() {exportSettings()});
+
+    $("#thumbnail-container").append(' \
+      <div class="thumbnail import-settings clickable settings-thumbnail"> \
+        <div class="thumbnail-background" style="background-image: url(assets/icons/ic_file_upload_white_24px.svg)"></div> \
+      </div> \
+    ');
+    $(".import-settings").click(function() {importSettings()});
 
     for (linkbar in data.profiles[data.curProfile].linkbars) {
       $('#links-bar-' + linkbar).append('\

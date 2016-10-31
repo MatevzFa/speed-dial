@@ -57,6 +57,10 @@ body {
     /*display: inline-block;*/
 }
 
+.settings-thumbnail {
+  width: calc(12.5% - 1px);
+}
+
 .links-bar {
     /*color: #999;*/
     /*font-family: 'Open Sans';*/

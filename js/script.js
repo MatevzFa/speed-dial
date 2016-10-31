@@ -33,6 +33,35 @@ function setProfile(profile) {
   })
 }
 
+function exportSettings() {
+  chrome.storage.sync.get(function(data) {
+    $("<a />", {
+    "download": "speed-dial-" + (new Date()).toISOString().substring(0,19).replace(/\:/g, '-') + ".json",
+    "href" : "data:application/json," + encodeURIComponent(JSON.stringify(data, null, '  '))
+  }).appendTo("body")
+  .click(function() {
+     $(this).remove()
+  })[0].click()
+  })
+}
+
+function importSettings() {
+  if($('body #import-area')) {
+    $div = $('<div>', {id: 'import-area', style: "position: fixed; top: 50px; left: 25%;"})
+    $textarea = $('<textarea>', {rows: "40", cols: "80", placeholder: "JSON"})
+    $btn = $('<button>', {text: "Import"})
+    $('body').append($div)
+    $('body #import-area').append($textarea)
+    $('body #import-area').append($btn);
+    $('body #import-area button').click(function() {
+      chrome.storage.sync.set(JSON.parse($('body #import-area textarea').val()), function() {
+        $('#import-area').remove();
+        loadSetup();
+      })
+    })
+  }
+}
+
 // [{"image": ..., "link": ...}, ...]
 function setProfileThumbs(profile, thumbArrayJSONString) {
   chrome.storage.sync.get(function(data) {
