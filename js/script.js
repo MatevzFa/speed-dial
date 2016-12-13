@@ -1,4 +1,3 @@
-var IMG_LINK_PATT = new RegExp(/((http:\/\/)|(https:\/\/)).+\.(png|jpg|gif|svg)/g);
 
 function setProfile(profile) {
   chrome.storage.sync.get(function(data) {
@@ -48,7 +47,7 @@ function exportSettings() {
 function importSettings() {
   if($('body #import-area')) {
     $div = $('<div>', {id: 'import-area', style: "position: fixed; top: 50px; left: 25%;"})
-    $textarea = $('<textarea>', {rows: "40", cols: "80", placeholder: "JSON"})
+    $textarea = $('<textarea>', {rows: "40", cols: "80", placeholder: "JSON", style: "font-size: 10pt"})
     $btn = $('<button>', {text: "Import"})
     $('body').append($div)
     $('body #import-area').append($textarea)
@@ -89,30 +88,40 @@ function loadThumbs() {
   chrome.storage.sync.get(function(data) {
     if (!data.curProfile || !data.profiles[data.curProfile].thumbs) return;
     var thumbnails = data.profiles[data.curProfile];
-    for (var i = 0; i < thumbnails.thumbs.length; i++) {
-      $("#thumbnail-container").append(
-        '<div class="thumbnail '+ (thumbnails.thumbs[i].url == 'empty' ? 'hidden' : 'clickable clickable-href') +'" href="'+ thumbnails.thumbs[i].url +'"> \
-          <div class="thumbnail-background" style="background-image: url(' +
-          (IMG_LINK_PATT.test(thumbnails.thumbs[i].img) ? thumbnails.thumbs[i].img : ('assets/images/'+ thumbnails.thumbs[i].img)) +
-          ')"></div> \
-        </div>'
-      );
+    for (let i = 0; i < thumbnails.thumbs.length; i++) {
+      $('#thumbnail-container').append(
+        $('<a />', {
+          class: 'thumbnail ' + (thumbnails.thumbs[i].url == 'empty' ? 'hidden' : 'clickable clickable-href'),
+          href: thumbnails.thumbs[i].url,
+          text: i,
+          click: function(e) {
+            switch(e.which) {
+              case 1: window.location = $(this).attr('href'); break;
+              case 2: window.open($(this).attr('href')); break;
+              case 3: break;
+            }
+          }
+        }).append(
+          $('<div />', {
+            class: 'thumbnail-background',
+            style: 'background-image: url(' + linkify(thumbnails.thumbs[i].img) + ')'
+          })
+        )
+      )
       $('#thumbnail-container').css('margin-top', $(window).height()/2 - $('#thumbnail-container').height()/2);
       $('.thumbnail').css('height', $('.thumbnail').width()/16*9);
-    }
-    $('div.clickable-href').on('click', function(e) {
-      switch(e.which) {
-        case 1:
-          window.location = $(this).attr('href');
-          break;
-        case 2:
-          window.open($(this).attr('href'));
-          break;
-        case 3:
-          return;
-      }
-    });
+    };
   });
+}
+
+function linkify (url) {
+  var patt = /^(http:\/\/|https:\/\/).+?\.(png|jpg|gif|svg)$/;
+  console.log(patt.test(url));
+  if (patt.test(url)) {
+    return url
+  } else {
+    return 'assets/images/' + url
+  }
 }
 
 function loadLinkbars() {
@@ -124,10 +133,13 @@ function loadLinkbars() {
         $("#links-bar-" + barname).append(linkbars[barname].title + ':&nbsp;&nbsp;');
       }
       for (var i = 0; i < linkbars[barname].links.length; i++) {
-        $("#links-bar-" + barname).append((i == 0 ? '' : ' | ') + '<span class="links-bar-node clickable-href" href="' + linkbars[barname].links[i].url + '">' + linkbars[barname].links[i].name + '</span>');
+        $("#links-bar-" +
+          barname).append((i == 0 ? '' : ' | ') +
+          '<a class="links-bar-node clickable-href" href="' + linkbars[barname].links[i].url + '">' + linkbars[barname].links[i].name + '</a>'
+        );
       }
     }
-    $('span.clickable-href').on("click", function(e) {
+    $('span.clickable-href').on('click', function(e) {
       switch(e.which) {
         case 1:
           window.location = $(this).attr('href');
@@ -149,8 +161,6 @@ $(document).ready(function() {
      $('#thumbnail-container').css('margin-top', $(window).height()/2 - $('#thumbnail-container').height()/2);
      $('.thumbnail').css('height', $('.thumbnail').width()/16*9);
   });
-  // $('#thumbnail-container').sortable();
-  // $('#thumbnail-container').sortable('disable');
   loadThumbs();
   loadLinkbars();
 
