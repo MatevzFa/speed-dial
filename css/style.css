@@ -1,6 +1,6 @@
+
 body {
   margin: 0;
-  /*background-color: #000;*/
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
@@ -10,12 +10,9 @@ body {
 
 #thumbnail-container {
   font-size: 0;
-  /*height: 100%;*/
-  /*background: #c0c0c0;*/
   width: 90%;
   max-width: 1280px;
   margin: 0 auto;
-  /*text-align: center;*/
 }
 
 #thumbnail-container:before {
@@ -23,20 +20,16 @@ body {
   display: inline-block;
   height: 100%;
   vertical-align: middle;
-
-  /* For visualization
-  background: #808080; width: 5px;
-  */
 }
 
 .thumbnail {
-  display: inline-block;
+  float: left;
+  display: block;
   vertical-align: middle;
   position: relative;
   width: calc(25% - 1px);
   margin-right: 1px;
   margin-bottom: 1px;
-  /*background-color: rgba(255, 255, 255, 0.2);*/
   text-align: center;
 }
 
@@ -54,7 +47,6 @@ body {
     background-repeat: no-repeat;
     background-position: center;
     background-size: contain;
-    /*display: inline-block;*/
 }
 
 .settings-thumbnail {
@@ -62,16 +54,10 @@ body {
 }
 
 .links-bar {
-    /*color: #999;*/
-    /*font-family: 'Open Sans';*/
-    /*font-weight: 700;*/
-    /*font-size: 1.1em;*/
     position: fixed;
-    /*text-shadow: 1px 1px 1px #000*/
 }
 
 .links-bar-node {
-    /*color: white;*/
     text-decoration: none;
 }
 .links-bar-node:hover {
@@ -110,4 +96,9 @@ body {
 #settings:hover {
   opacity: 1;
   cursor: pointer;
+}
+
+
+.setup-thumb textarea {
+
 }

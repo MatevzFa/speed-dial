@@ -35,12 +35,12 @@ function setProfile(profile) {
 function exportSettings() {
   chrome.storage.sync.get(function(data) {
     $("<a />", {
-    "download": "speed-dial-" + (new Date()).toISOString().substring(0,19).replace(/\:/g, '-') + ".json",
-    "href" : "data:application/json," + encodeURIComponent(JSON.stringify(data, null, '  '))
-  }).appendTo("body")
-  .click(function() {
-     $(this).remove()
-  })[0].click()
+      download: "speed-dial-" + (new Date()).toISOString().substring(0,19).replace(/\:/g, '-') + ".json",
+      href: "data:application/json," + encodeURIComponent(JSON.stringify(data, null, '  '))
+    }).appendTo("body")
+    .click(function() {
+       $(this).remove()
+    })[0].click()
   })
 }
 
@@ -53,10 +53,14 @@ function importSettings() {
     $('body #import-area').append($textarea)
     $('body #import-area').append($btn);
     $('body #import-area button').click(function() {
-      chrome.storage.sync.set(JSON.parse($('body #import-area textarea').val()), function() {
-        $('#import-area').remove();
-        loadSetup();
-      })
+      if ($('body #import-area textarea').val().length > 0) {
+        chrome.storage.sync.set(JSON.parse($('body #import-area textarea').val()), function() {
+          $('#import-area').remove();
+          loadSetup();
+        })
+      } else {
+        $('body #import-area').remove();
+      }
     })
   }
 }
@@ -92,15 +96,7 @@ function loadThumbs() {
       $('#thumbnail-container').append(
         $('<a />', {
           class: 'thumbnail ' + (thumbnails.thumbs[i].url == 'empty' ? 'hidden' : 'clickable clickable-href'),
-          href: thumbnails.thumbs[i].url,
-          text: i,
-          click: function(e) {
-            switch(e.which) {
-              case 1: window.location = $(this).attr('href'); break;
-              case 2: window.open($(this).attr('href')); break;
-              case 3: break;
-            }
-          }
+          href: thumbnails.thumbs[i].url
         }).append(
           $('<div />', {
             class: 'thumbnail-background',
@@ -108,15 +104,13 @@ function loadThumbs() {
           })
         )
       )
-      $('#thumbnail-container').css('margin-top', $(window).height()/2 - $('#thumbnail-container').height()/2);
-      $('.thumbnail').css('height', $('.thumbnail').width()/16*9);
-    };
+    }
+    $('#thumbnail-container').append($('<div />', { style: 'clear: left; display: block;' }))
   });
 }
 
 function linkify (url) {
   var patt = /^(http:\/\/|https:\/\/).+?\.(png|jpg|gif|svg)$/;
-  console.log(patt.test(url));
   if (patt.test(url)) {
     return url
   } else {
@@ -139,18 +133,6 @@ function loadLinkbars() {
         );
       }
     }
-    $('span.clickable-href').on('click', function(e) {
-      switch(e.which) {
-        case 1:
-          window.location = $(this).attr('href');
-          break;
-        case 2:
-          window.open($(this).attr('href'));
-          break;
-        case 3:
-          return;
-      }
-    });
   });
 }
 

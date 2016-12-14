@@ -1,6 +1,11 @@
+
+const TEXTARE_FONT_SIZE = 'font-size: 8pt';
+
 function loadSetup() {
   $('#thumbnail-container').empty();
-  $('#thumbnail-container').sortable();
+  $('#thumbnail-container').sortable({
+    items: '> .sortable'
+  });
   $('.links-bar').empty();
 
   chrome.storage.sync.get(function(data) {
@@ -8,62 +13,107 @@ function loadSetup() {
     var thumbnails = data.profiles[data.curProfile];
 
     for (var i = 0; i < thumbnails.thumbs.length; i++) {
-      $("#thumbnail-container").append(' \
-      \
-        <div class="thumbnail setup-thumb"> \
-          <textarea style="margin-top: 1em;" rows="2" cols="35" placeholder="URL">' + thumbnails.thumbs[i].url + '</textarea> \
-          <textarea rows="2" cols="35" placeholder="Image">' + thumbnails.thumbs[i].img + '</textarea><br> \
-          <img class="remove-thumb clickable" src="assets/icons/ic_clear_white_24px.svg"> \
-        </div>');
+      $('#thumbnail-container').append(
+        $('<div />', {
+          class: 'thumbnail setup-thumb sortable'
+        })
+        .append($('<textarea />', {
+          rows: 3, cols: 35, placeholder: 'URL',
+          style: TEXTARE_FONT_SIZE,
+          text: thumbnails.thumbs[i].url
+        })).append('<br>')
+        .append($('<textarea />', {
+          rows: 4, cols: 35, placeholder: 'Image',
+          style: TEXTARE_FONT_SIZE,
+          text: thumbnails.thumbs[i].img
+        })).append('<br>')
+        .append($('<img />', {
+          class: 'remove-thumb clickable',
+          src: 'assets/icons/ic_clear_white_24px.svg',
+          click: function(e) {
+            $(this).parents("div:first").remove();
+          }
+        }))
+      )
     }
-    $(document).on('click', '.remove-thumb', function() {
-      console.log('btn remove');
-      $(this).parents("div:first").remove();
-    });
 
-    $("#thumbnail-container").append(' \
-      <div class="thumbnail add-thumb clickable settings-thumbnail"> \
-        <div class="thumbnail-background" style="background-image: url(assets/icons/ic_add_circle_outline_white_24px.svg)"></div> \
-      </div> \
-    ');
+    $('#thumbnail-container').append(
+      $('<div />', {
+        class: 'thumbnail clickable settings-thumbnail add-thumb',
+        click: function(e) {
+          $(".add-thumb").before(
+            $('<div />', {
+              class: 'thumbnail setup-thumb sortable'
+            })
+            .append($('<textarea />', {
+              rows: 3, cols: 35, placeholder: 'URL',
+              style: TEXTARE_FONT_SIZE
+            }))
+            .append($('<textarea />', {
+              rows: 4, cols: 35, placeholder: 'Image',
+              style: TEXTARE_FONT_SIZE
+            }))
+            .append($('<img />', {
+              class: 'remove-thumb clickable',
+              src: 'assets/icons/ic_clear_white_24px.svg',
+              click: function(e) {
+                $(this).parents("div:first").remove();
+              }
+            }))
+          )
+        }
+      })
+      .append($('<div />', {
+        class: 'thumbnail-background',
+        style: 'background-image: url(assets/icons/ic_add_circle_outline_white_24px.svg);'
+      }))
+    )
 
-    $('.add-thumb').click(function() {
-      $(".add-thumb").before(' \
-        <div class="thumbnail setup-thumb"> \
-          <textarea style="margin-top: 1em;" rows="2" cols="35" placeholder="URL"></textarea> \
-          <textarea rows="2" cols="35" placeholder="Image"></textarea><br> \
-          <img class="remove-thumb clickable" src="assets/icons/ic_clear_white_24px.svg"> \
-        </div> \
-        ');
-    });
+    $('#thumbnail-container').append(
+      $('<div />', {
+        class: 'thumbnail clickable settings-thumbnail',
+        click: function(e) { saveSetup() }
+      })
+      .append($('<div />', {
+        class: 'thumbnail-background',
+        style: 'background-image: url(assets/icons/ic_save_white_24px.svg);'
+      }))
+    )
 
-    $("#thumbnail-container").append(' \
-      <div class="thumbnail save-thumbs clickable settings-thumbnail"> \
-        <div class="thumbnail-background" style="background-image: url(assets/icons/ic_save_white_24px.svg)"></div> \
-      </div> \
-    ');
-    $(".save-thumbs").click(function() {saveSetup()});
+    $('#thumbnail-container').append(
+      $('<div />', {
+        class: 'thumbnail clickable settings-thumbnail',
+        click: function(e) { exportSettings() }
+      })
+      .append($('<div />', {
+        class: 'thumbnail-background',
+        style: 'background-image: url(assets/icons/ic_file_download_white_24px.svg);'
+      }))
+    )
 
-    $("#thumbnail-container").append(' \
-      <div class="thumbnail export-settings clickable settings-thumbnail"> \
-        <div class="thumbnail-background" style="background-image: url(assets/icons/ic_file_download_white_24px.svg)"></div> \
-      </div> \
-    ');
-    $(".export-settings").click(function() {exportSettings()});
+    $('#thumbnail-container').append(
+      $('<div />', {
+        class: 'thumbnail clickable settings-thumbnail',
+        click: function(e) { importSettings() }
+      })
+      .append($('<div />', {
+        class: 'thumbnail-background',
+        style: 'background-image: url(assets/icons/ic_file_upload_white_24px.svg);'
+      }))
+    )
 
-    $("#thumbnail-container").append(' \
-      <div class="thumbnail import-settings clickable settings-thumbnail"> \
-        <div class="thumbnail-background" style="background-image: url(assets/icons/ic_file_upload_white_24px.svg)"></div> \
-      </div> \
-    ');
-    $(".import-settings").click(function() {importSettings()});
+    $('#thumbnail-container').append($('<div />', { style: 'clear: left; display: block;' }))
 
     for (linkbar in data.profiles[data.curProfile].linkbars) {
-      $('#links-bar-' + linkbar).append('\
-        <textarea id="lb-' + linkbar + '-setup">' + JSON.stringify(data.profiles[data.curProfile].linkbars[linkbar], null, '  ') + '</textarea> \
-      ');
+      $('#links-bar-' + linkbar).append(
+        $('<textarea />', {
+          id: 'lb-' + linkbar + '-setup',
+          rows: 4, cols: 40,
+          text: JSON.stringify(data.profiles[data.curProfile].linkbars[linkbar], null, '  '),
+          style: 'max-height: 500px; max-width: 500px'
+        })
+      );
     }
-
   });
 }
 
@@ -73,19 +123,12 @@ function saveSetup() {
     if (!data.curProfile || !data.profiles[data.curProfile].thumbs) return;
     data.profiles[data.curProfile];
     data.profiles[data.curProfile].thumbs = [];
-    console.log($('.setup-thumb').length);
     for (var i = 0; i < $('.setup-thumb').length; i++) {
       if ($('.setup-thumb').eq(i).find('textarea').eq(0).val().length > 0) {
         data.profiles[data.curProfile].thumbs.push({
           url: $('.setup-thumb').eq(i).find('textarea').eq(0).val(),
           img: $('.setup-thumb').eq(i).find('textarea').eq(1).val()
         });
-
-        console.log({
-          url: $('.setup-thumb').eq(i).find('textarea').eq(0).val(),
-          img: $('.setup-thumb').eq(i).find('textarea').eq(1).val()
-        });
-
       }
     }
 
