@@ -1,7 +1,7 @@
-# __Speed Dial 2__
+# __Speed Dial__
 
 ## Description
 Speed Dial extension for Google Chrome.
 
 ## Setting up
-_This extension is not packed. You can either pack it yourself, or use Developer mode._
+Download from the [Chrome Web Store](https://chrome.google.com/webstore/detail/speed-dial/oclfpimokfhcchncefemplpcchlpmjmn).
