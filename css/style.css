@@ -25,7 +25,6 @@ body {
 .thumbnail {
   float: left;
   display: block;
-  vertical-align: middle;
   position: relative;
   width: calc(25% - 1px);
   margin-right: 1px;
@@ -55,6 +54,7 @@ body {
 
 .links-bar {
     position: fixed;
+    white-space: nowrap;
 }
 
 .links-bar-node {
@@ -96,9 +96,4 @@ body {
 #settings:hover {
   opacity: 1;
   cursor: pointer;
-}
-
-
-.setup-thumb textarea {
-
 }

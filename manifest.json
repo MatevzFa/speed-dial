@@ -1,19 +1,14 @@
 {
     "manifest_version": 2,
     "name": "Speed Dial",
-    "version": "0.1.4",
+    "version": "0.1.5",
     "author": "MatevzFa",
 
-    "default_locale": "en",
     "description": "The end is nigh!",
     "icons": {
         "16": "icons/tch_16.png",
         "48": "icons/tch_48.png",
         "128": "icons/tch_128.png"
-    },
-
-    "background": {
-        "persistent": false
     },
 
     "permissions": [
