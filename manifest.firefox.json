@@ -14,5 +14,10 @@
     ],
     "chrome_url_overrides": {
         "newtab": "index.html"
+    },
+    "applications": {
+        "gecko": {
+            "id": "speed-dial@example.org"
+        }
     }
 }
